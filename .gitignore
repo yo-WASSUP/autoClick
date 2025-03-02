@@ -1,2 +1,7 @@
 env
 images
+ocr_results
+coordinates
+__pycache__
+screenshots
+.xlsx
