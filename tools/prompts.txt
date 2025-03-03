@@ -1,0 +1,8 @@
+帮我创建一个Python脚本,来实现自动按顺序点击一个游戏窗口中的某些图标,要用到paddleocr识别文字,用opencv的模版匹配来识别游戏中的图标,要做成一个系统,模块化
+    // "window_title": "新VIP-0R4O",
+@config.json 把这个改成从Excel文件中读取,每次操作再加上一个操作方法,可能是单击或双击
+@auto_clicker.py#L37 我增加了一个shift参数,默认是0,如果有的话,就是L50,代表要往左移50像素,同样的还有R,U，D代表右移上移下移,帮我修改其他代码使用这个附加参数
+
+
+
+获取窗口名命令: Get-Process | Where-Object {$_.MainWindowTitle -ne ""} | Select-Object MainWindowTitle

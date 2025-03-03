@@ -9,7 +9,7 @@ from window_controller import WindowController
 import win32gui
 
 class AutoClicker:
-    def __init__(self, config_file='click-test1.xlsx'):
+    def __init__(self, config_file='csv-files/click-test1.xlsx'):
         self.image_recognition = ImageRecognition()
         self.window_controller = WindowController()
         self.config = self.load_config(config_file)
@@ -45,9 +45,10 @@ class AutoClicker:
                 })
             
             return {
-                'window_title': 'click-test1.xlsx - WPS Office',
                 # 'window_title': 'Ace云手机',
                 # 'window_title': '新VIP-0R4O',
+                # 'window_title': 'Weixin',
+                'window_title': 'click-test1.xlsx - WPS Office',
                 'click_sequence': click_sequence
             }
         except FileNotFoundError:
@@ -108,13 +109,10 @@ class AutoClicker:
         retry_count = 0
         while step_index < len(self.config["click_sequence"]):
             # 在每个步骤执行前检查窗口是否存在
-            if not win32gui.IsWindow(self.window_controller.window_handle):
-                print(f"窗口已关闭或不存在，尝试重新查找窗口: {self.config['window_title']}")
-                if not self.window_controller.find_window(self.config["window_title"]):
-                    print(f"无法重新找到窗口，停止执行")
-                    return False
-                print("已重新找到窗口，继续执行")
-            
+            if not self.window_controller.set_foreground():
+                print("窗口已关闭或不存在")
+                return False
+
             action = self.config["click_sequence"][step_index]
             print(f"执行步骤 {step_index + 1}/{len(self.config['click_sequence'])}: {action['type']} - {action['target']}")
             
